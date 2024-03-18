@@ -13,7 +13,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Job extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'title',
+        'location',
+        'salary',
+        'description',
+        'experience',
+        'category'
+    ];
     public static array $experience = ['entry', 'intermediate', 'senior'];
     public static array $category = [
         'IT',
@@ -29,7 +36,7 @@ class Job extends Model
     {
         return $this->hasMany(JobApplication::class);
     }
-    public function hasUserApplied(Authenticatable  |User|int $user): bool
+    public function hasUserApplied(Authenticatable|User|int $user): bool
     {
         return $this->where('id', $this->id)
             ->whereHas(
